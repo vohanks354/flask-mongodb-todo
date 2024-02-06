@@ -24,6 +24,9 @@ def add_tasks():
     if request.method == "POST":
         title = request.form['title']
         body = request.form['body']
+        # title = request.POST['title']
+        # body = request.POST['body']
+        print(body)
         response = todo.create({'title': title, 'body': body})
         return response, 201
 
@@ -33,6 +36,8 @@ def update_tasks(todo_id):
     if request.method == "PUT":
         title = request.form['title']
         body = request.form['body']
+        # title = request.POST['title']
+        # body = request.POST['body']
         response = todo.update(todo_id, {'title': title, 'body': body})
         return response, 201
 
