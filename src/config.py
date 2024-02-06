@@ -1,3 +1,17 @@
 import json
+import os
+from dotenv import load_dotenv
 
-config = json.load(open('db_config.json'))  #load db in json format
+load_dotenv()
+
+DatabaseJson = {
+    "db": {
+            "url": os.environ.get('URL_MONGODB_DEV'),
+            "name": "tododb",
+            "user" : "",
+            "password" :""
+    }
+}
+
+# config = json.load(DatabaseJson)
+config = DatabaseJson

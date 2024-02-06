@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: todo-api
+  name: todo-api
+spec:
+  runPolicy: Serial
+  source:
+    dockerfile: |
+        FROM quay.io/vohanks3540/python:3.10
+
+        WORKDIR /code
+
+        COPY . .
+
+        RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+
+        EXPOSE 8088
+
+        CMD ["flask", "run", "--host", "0.0.0.0", "--debug"]
+  strategy:
+    type: Docker
+    dockerStrategy:
+      noCache: false
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "todo-api:latest"

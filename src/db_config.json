@@ -1,8 +1,0 @@
-{
-    "db": {
-            "url" : "mongodb://172.22.212.254:27018/",
-            "name" :"tododb",
-            "user" :"",
-            "password" :""
-    }
-}

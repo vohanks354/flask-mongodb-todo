@@ -1,0 +1,25 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: mongodb-dev
+  name: mongodb-dev
+spec:
+  runPolicy: Serial
+  source:
+    dockerfile: |
+        FROM mongo
+        MAINTAINER vohanks354
+
+        USER root
+        RUN chmod 777 /data/db
+
+        EXPOSE 27017
+  strategy:
+    type: Docker
+    dockerStrategy:
+      noCache: false
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "mongodb-dev:latest"

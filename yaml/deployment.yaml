@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-api
+  template:
+    metadata:
+      labels:
+        app: todo-api
+    spec:
+      containers:
+        - name: todo-api
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/kirom-hadiyanto-dev/todo-api:latest"
+          # image: "todo-api:latest"
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          stdin: true
+          serviceAccount: default
+          env: 
+            - name: "URL_MONGODB_DEV"
+              value: "mongodb-dev"
+            - name: "URL_MONGODB_PROD"
+              value: "mongodb-dev"
+      terminationGracePeriodSeconds: 5

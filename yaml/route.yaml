@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+spec:
+  # hostname: foo.apps.CLUSTER.ccs.ornl.gov
+  port:
+    targetPort: tcp-5000
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: todo-api
+    weight: 100
+  wildcardPolicy: None

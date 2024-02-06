@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-dev
+  labels:
+    app: mongodb-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-dev
+  template:
+    metadata:
+      labels:
+        app: mongodb-dev
+    spec:
+      containers:
+        - name: mongodb-dev
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/kirom-hadiyanto-dev/mongodb-dev:latest"
+          # image: "mongodb-dev:latest"
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          tty: true
+          stdin: true
+          serviceAccount: default
+          magePullPolicy: "Always"
+          # env: 
+            # - name: "MONGO_INITDB_ROOT_USERNAME"
+              # value: "mongodb"
+            # - name: "MONGO_INITDB_ROOT_PASSWORD"
+              # value: "mongodb"
+          ports: 
+            - containerPort: 27017
+              name: "mongodb"
+          volumeMounts: 
+            - name: "mongodb-persistent-storage"
+              mountPath: "/data/db"
+      volumes: 
+          - name: "mongodb-persistent-storage"
+            persistentVolumeClaim: 
+              claimName: "mongodb-pvc"
+      terminationGracePeriodSeconds: 5
