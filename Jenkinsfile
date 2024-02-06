@@ -25,7 +25,7 @@ pipeline {
         stage("Authentication Credential") {
             steps {
                 script{
-                    sh "oc login --token=sha256~74VH73WE9kdH-iaJvSiUh7zkV_FPwcEOiAxO1puT0ok --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443"
+                    sh "oc login --token=sha256~v-IYTez-PqyVtHXYuEBY8yNBeVficMzjX_V-SptNuHo --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443"
                     sh "oc project ${PROJECT_DEV}"
                 }
             }
@@ -57,7 +57,7 @@ pipeline {
                                 sh "oc create -f yaml/buildconfig.yaml"
                             }, 
                             'MonggoDB': {
-                                sh "oc create -f yaml/buildconfig.yaml"
+                                sh "oc create -f yaml/buildconfigdb.yaml"
                             }
                         )
                     } catch (Exception e) {
@@ -75,7 +75,7 @@ pipeline {
                                 sh "oc create -f yaml/imagestream.yaml"
                             }, 
                             'MonggoDB': {
-                                sh "oc create -f yaml/imagestream.yaml"
+                                sh "oc create -f yaml/imagestreamdb.yaml"
                             }
                         )
                     } catch (Exception e) {
@@ -111,7 +111,7 @@ pipeline {
                                 sh "oc create -f yaml/deployment.yaml"
                             }, 
                             'MonggoDB': {
-                                sh "oc create -f yaml/deployment.yaml"
+                                sh "oc create -f yaml/deploymentdb.yaml"
                             }
                         )
                     } catch (Exception e) {
@@ -129,7 +129,7 @@ pipeline {
                                 sh "oc create -f yaml/service.yaml"
                             }, 
                             'MonggoDB': {
-                                sh "oc create -f yaml/service.yaml"
+                                sh "oc create -f yaml/servicedb.yaml"
                             }
                         )
                     } catch (Exception e) {
@@ -147,7 +147,7 @@ pipeline {
                                 sh "oc create -f yaml/route.yaml"
                             }, 
                             'MonggoDB': {
-                                sh "oc create -f yaml/route.yaml"
+                                sh "oc create -f yaml/routedb.yaml"
                             }
                         )
                     } catch (Exception e) {
