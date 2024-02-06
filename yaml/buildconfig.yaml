@@ -16,9 +16,12 @@ spec:
 
         RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
+        WORKDIR /code/src
+
         EXPOSE 5000
 
-        CMD ["python3", "-m" , "flask", "run", "--host", "0.0.0.0"]
+        CMD ["flask", "run", "--host", "0.0.0.0"]
+        # CMD ["flask", "app.py"]
   strategy:
     type: Docker
     dockerStrategy:
